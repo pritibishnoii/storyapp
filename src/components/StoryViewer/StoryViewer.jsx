@@ -156,12 +156,12 @@ const StoryViewer = (props) => {
   };
 
   const handleShare = (slideIndex) => {
-    const link = `${process.env.REACT_APP_FRONTEND_URL}/?slide=true&id=${slides[slideIndex]._id}`;
+    // const link = `${process.env.REACT_APP_FRONTEND_URL}/?slide=true&id=${slides[slideIndex]._id}`;
+    const link = `${window.location.origin}/?slide=true&id=${slides[slideIndex]._id}`;
     navigator.clipboard.writeText(link);
     const newLinkCopiedStatus = [...linkCopiedStatus];
     newLinkCopiedStatus[slideIndex] = true;
     setLinkCopiedStatus(newLinkCopiedStatus);
-    console.log(process.env.REACT_APP_FRONTEND_URL);
 
     setTimeout(() => {
       const newLinkCopiedStatus = [...linkCopiedStatus];
