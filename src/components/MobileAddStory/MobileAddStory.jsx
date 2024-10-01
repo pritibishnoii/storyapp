@@ -149,7 +149,7 @@ const MobileAddStory = () => {
     if (id) {
       const getPost = async () => {
         const response = await fetch(
-          `${process.env.BACKEND_URL}/api/post/postDetails/${id}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/post/postDetails/${id}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -258,7 +258,7 @@ const MobileAddStory = () => {
 
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/post/add`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/post/add`,
         {
           method: "POST",
           headers: {
@@ -320,7 +320,7 @@ const MobileAddStory = () => {
       }));
 
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/post/edit/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/post/edit/${id}`,
         {
           method: "PUT",
           headers: {
