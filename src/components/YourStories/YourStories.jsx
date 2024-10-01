@@ -22,34 +22,71 @@ const YourStories = (props) => {
     };
   }, []);
 
+  // const fetchYourStories = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.REACT_APP_BACKEND_URL}/api/user/posts`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //         body: JSON.stringify({ filters: props.selectedFilters }),
+  //       }
+  //     );
+  //     console.log(localStorage.getItem("token"))
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data.posts);
+  //       setYourStories(data.posts);
+  //     } else {
+  //       console.error("Failed to fetch your stories");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching your stories:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const fetchYourStories = async () => {
     setIsLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+  
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/user/posts`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ filters: props.selectedFilters }),
         }
       );
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.posts);
-        setYourStories(data.posts);
-      } else {
-        console.error("Failed to fetch your stories");
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Failed to fetch your stories:", errorData.message || "Unknown error");
+        return;
       }
+  
+      const data = await response.json();
+      setYourStories(data.posts);
     } catch (error) {
       console.error("Error fetching your stories:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchYourStories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
