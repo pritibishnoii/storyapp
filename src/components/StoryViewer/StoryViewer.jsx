@@ -161,6 +161,7 @@ const StoryViewer = (props) => {
     const newLinkCopiedStatus = [...linkCopiedStatus];
     newLinkCopiedStatus[slideIndex] = true;
     setLinkCopiedStatus(newLinkCopiedStatus);
+    console.log(process.env.REACT_APP_FRONTEND_URL);
 
     setTimeout(() => {
       const newLinkCopiedStatus = [...linkCopiedStatus];
