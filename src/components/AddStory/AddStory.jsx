@@ -4,9 +4,6 @@ import styles from "./addStory.module.css";
 import ModalContainer from "../ModalContainer/ModalContainer";
 import modalCloseIcon from "../../assets/modalCloseIcon.jpg";
 
-import { useNavigate } from "react-router-dom";
-
-
 const Slide = (props) => (
   <div className={styles.slideContainer}>
     {[...Array(props.slideCount)].map((_, index) => (
@@ -148,7 +145,6 @@ const AddStory = () => {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -270,8 +266,7 @@ const AddStory = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            // Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ slides: postData.slides }),
         }
@@ -281,15 +276,10 @@ const AddStory = () => {
         setShowSuccessMessage(true);
         setTimeout(() => {
           window.location.href = "/";
-          // navigate("/");
         }, 1200);
       } else {
-        // setShowSuccessMessage(false);
-        // console.log("Error creating post");
-        const errorResponse = await response.json();
-         setShowSuccessMessage(false);
-         setErrorMessage(errorResponse.message || "Error creating post");
-         setShowError(true);
+        setShowSuccessMessage(false);
+        console.log("Error creating post");
       }
     } catch (error) {
       setShowSuccessMessage(false);
@@ -323,12 +313,6 @@ const AddStory = () => {
     setShowError(false);
     setErrorMessage("");
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setShowError(true);
-      setErrorMessage("You are not authenticated. Please login.");
-      return;
-    }
     setIsProcessing(true);
     try {
       const payload = postData.slides.map((slide) => ({
@@ -345,7 +329,7 @@ const AddStory = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ slides: payload }),
         }
@@ -355,7 +339,6 @@ const AddStory = () => {
         setShowSuccessMessage(true);
         setTimeout(() => {
           window.location.href = "/";
-          // navigate("/")
         }, 1200);
       } else {
         setShowSuccessMessage(false);
