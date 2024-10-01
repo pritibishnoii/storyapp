@@ -37,7 +37,7 @@ const StoryViewer = (props) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -101,7 +101,7 @@ const StoryViewer = (props) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ slideId }),
         }
@@ -129,7 +129,7 @@ const StoryViewer = (props) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ slideId }),
         }
