@@ -154,7 +154,7 @@ const AddStory = () => {
     if (id) {
       const getPost = async () => {
         const response = await fetch(
-          `${process.env.BACKEND_URL}/api/post/postDetails/${id}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/post/postDetails/${id}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -265,7 +265,7 @@ const AddStory = () => {
     try {
       console.log(postData.slides);
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/post/add`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/post/add`,
         {
           method: "POST",
           headers: {
@@ -280,8 +280,8 @@ const AddStory = () => {
       if (response.ok) {
         setShowSuccessMessage(true);
         setTimeout(() => {
-          // window.location.href = "/";
-          navigate("/");
+          window.location.href = "/";
+          // navigate("/");
         }, 1200);
       } else {
         // setShowSuccessMessage(false);
@@ -340,7 +340,7 @@ const AddStory = () => {
       }));
 
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/post/edit/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/post/edit/${id}`,
         {
           method: "PUT",
           headers: {
